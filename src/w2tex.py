@@ -5,7 +5,7 @@ def write2tex(cols, rows, ifiles, ofile, options):
     alph_offset = ord('b') - ord('a')
     nfiles      = len(ifiles)
 
-    worktex = 'worktex.tex'
+    worktex = ofile
     op = open(worktex, mode='w')
     op.write(r'\documentclass[tikz,border=0pt]{standalone}'+'\n')
     op.write(r'\usepackage{graphicx}'+'\n')
