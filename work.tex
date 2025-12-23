@@ -1,0 +1,30 @@
+\documentclass[tikz,border=0pt]{standalone}
+\usepackage{graphicx}
+
+\newsavebox{\figa}
+\newsavebox{\figb}
+% \newsavebox{\figc}
+
+\begin{document}
+
+\sbox{\figa}{\includegraphics{../EP_Meridional/a_DJF_ep_total.pdf}}
+\sbox{\figb}{\includegraphics{../EP_Meridional/b_JJA_ep_total.pdf}}
+% \sbox{\figc}{\includegraphics{../EP_Meridional/c_DJF_ep_diabatic.pdf}}
+
+\begin{tikzpicture}[x=1pt,y=1pt]
+
+  % fig1
+  \node[anchor=north west,inner sep=0] at (0,0)
+    {\usebox{\figa}};
+
+  % fig2：fig1 の幅 + 20pt 右
+  \node[anchor=north west,inner sep=0] at (\wd\figa + 5pt, 0)
+    {\usebox{\figb}};
+
+  % fig2：fig1 の幅 + 20pt 右
+  % \node[anchor=north west,inner sep=0] at (0, -\ht\figa)
+    % {\usebox{\figc}};
+
+\end{tikzpicture}
+
+\end{document}
