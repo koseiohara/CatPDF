@@ -32,16 +32,13 @@ def write2tex(cols, rows, ifiles, ofile, options):
             work_label_inner = work_label_inner + [label_list[k]]
             k = k + 1
         work_label = work_label + [work_label_inner]
-        print(work_label[i])
 
-    print(work_label)
     loc = mklocation(work_label, cols, rows, nfiles, gap)
 
     op.write(r'\begin{tikzpicture}'+'\n')
     k = 0
     for i in range(rows):
         for j in range(cols):
-            print(f'{k=}, {i=}, {j=}')
             op.write(r'\node[anchor=north west,inner sep=0] at '+f'({loc[i][j]["x"]},{loc[i][j]["y"]})'+r' {\usebox{' + label_list[k] + '}};'+'\n')
             if (k == nfiles-1):
                 op.write(r'\end{tikzpicture}'+'\n')
@@ -63,7 +60,6 @@ def alph_update(curr, offset):
 
 
 def mklocation(label, cols, rows, nfiles, gap):
-    print()
     x = '0'
     y = '0'
     k = 0
@@ -71,7 +67,6 @@ def mklocation(label, cols, rows, nfiles, gap):
     for i in range(rows):
         loc_col = []
         for j in range(cols):
-            print(f'{k=}, {i=}, {j=}, label={label[i][j]}')
             if (j == 0):
                 x = '0'
             elif (j == 1):
@@ -87,13 +82,11 @@ def mklocation(label, cols, rows, nfiles, gap):
                 y = loc[i-1][j]['y'] + r'-\ht' + label[i-1][j] + '-' + gap
 
             loc_col = loc_col + [{'x': x, 'y': y}]
-            #print(f'{"":2}{k=}[{i=},{j=}]:{loc[k]=}', end="")
             if (k == nfiles-1):
                 loc = loc + [loc_col]
                 return loc
             k = k + 1
         loc = loc + [loc_col]
-        print(loc_col)
 
     return loc
 

@@ -46,8 +46,6 @@ def get_tile(tile, ifile):
         rows = len(ifile)
     elif ('x' in tile):
         x = tile.index('x')
-        print(f'cols: {tile[0:x]}')
-        print(f'rows: {tile[x+1:]}')
 
         try:
             cols = int(tile[   : x])
@@ -64,10 +62,7 @@ def get_tile(tile, ifile):
         for j in range(cols):
             idx = i*cols + j
             if (idx > len(ifile)-1):
-                print()
                 return cols, rows
-            print(f'{idx+1:2}:{ifile[idx][:4]}...{"":2}', end='')
-        print()
 
     return cols, rows
 
