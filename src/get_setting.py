@@ -1,3 +1,4 @@
+from pathlib import Path
 
 def get_command(args_list):
     i = 0
@@ -19,6 +20,15 @@ def get_command(args_list):
 
         i = i + 1
     return file_list[:-1], file_list[-1], option_list
+
+
+def get_ifile(ifiles):
+    absolute = []
+    for path in ifiles:
+        pathp = Path(path)
+        absolute = absolute + [str(pathp.resolve())]
+
+    return absolute
 
 
 def set_options(iopt):
