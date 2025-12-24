@@ -1,23 +1,23 @@
 INSTALL=${HOME}/PythonLib/lib
 
-MERGE_DIR=${INSTALL}/merge_pdf
-EXEC=${MERGE_DIR}/merge
+CATPDF=${INSTALL}/CatpdfTool
+EXEC=${CATPDF}/catpdf
 
 .PHONY: install uninstall mkbash
 
 install : 
-	mkdir ${MERGE_DIR}
-	mkdir ${MERGE_DIR}/latex
-	mkdir ${MERGE_DIR}/work
-	cp -r src/* ${MERGE_DIR}/
+	mkdir ${CATPDF}
+	mkdir ${CATPDF}/latex
+	mkdir ${CATPDF}/work
+	cp -r src/* ${CATPDF}/
 	echo "#!/usr/bin/env python3" > ${EXEC}
-	echo workdir='"${MERGE_DIR}/work/"' >> ${EXEC}
-	cat ${MERGE_DIR}/main.py >> ${EXEC}
-	ln -s ${EXEC} ${INSTALL}/merge
-	chmod 755 ${INSTALL}/merge
+	echo workdir='"${CATPDF}/work/"' >> ${EXEC}
+	cat ${CATPDF}/main.py >> ${EXEC}
+	ln -s ${EXEC} ${INSTALL}/catpdf
+	chmod 755 ${INSTALL}/catpdf
 
 uninstall:
-	unlink ${INSTALL}/merge
-	rm -r ${MERGE_DIR}
+	unlink ${INSTALL}/catpdf
+	rm -r ${CATPDF}
 
 
