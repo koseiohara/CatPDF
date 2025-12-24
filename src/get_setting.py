@@ -1,4 +1,3 @@
-#import sys
 
 def get_command(args_list):
     i = 0
@@ -22,7 +21,7 @@ def get_command(args_list):
 def set_options(iopt):
     default = {
                'tile'  : 'horizontal',
-               'margin': 0           ,
+               'margin': '0'         ,
               }
     options = default.copy()
     options.update(iopt)
@@ -58,12 +57,32 @@ def get_tile(tile, ifile):
     if (cols*rows < len(ifile)):
         raise ValueError(f'Number of tiles is too small: {cols*rows}. {len(ifile)} files were specified.')
 
-    for i in range(rows):
-        for j in range(cols):
-            idx = i*cols + j
-            if (idx > len(ifile)-1):
-                return cols, rows
+    #for i in range(rows):
+    #    for j in range(cols):
+    #        idx = i*cols + j
+    #        if (idx > len(ifile)-1):
+    #            return cols, rows
 
     return cols, rows
+
+
+def get_margin(margin):
+    margin = margin.lower()
+    if ('x' in margin):
+        x = margin.index('x')
+
+        try:
+            xmargin = int(margin[   :x])
+            ymargin = int(margin[x+1: ])
+        except:
+            raise ValueError(f'Invalid margin format: {margin}. Input should be an integer, '+'or {width}x{height}.')
+    else:
+        try:
+            xmargin = int(margin)
+            ymargin = xmargin
+        except:
+            raise ValueError(f'Invalid margin format: {margin}. Input should be an integer, '+'or {width}x{height}.')
+    
+    return {'x': xmargin, 'y': ymargin}
 
 

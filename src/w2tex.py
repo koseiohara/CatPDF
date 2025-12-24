@@ -1,6 +1,8 @@
 
-def write2tex(cols, rows, ifiles, ofile, options):
-    gap = str(options['margin']) + 'pt'
+def write2tex(cols, rows, margin, ifiles, ofile, options):
+    #gap  = str(options['margin']) + 'pt'
+    xgap = str(margin['x']) + 'pt'
+    ygap = str(margin['y']) + 'pt'
 
     alph_offset = ord('b') - ord('a')
     nfiles      = len(ifiles)
@@ -33,7 +35,7 @@ def write2tex(cols, rows, ifiles, ofile, options):
             k = k + 1
         work_label = work_label + [work_label_inner]
 
-    loc = mklocation(work_label, cols, rows, nfiles, gap)
+    loc = mklocation(work_label, cols, rows, nfiles, xgap, ygap)
 
     op.write(r'\begin{tikzpicture}'+'\n')
     k = 0
@@ -59,7 +61,7 @@ def alph_update(curr, offset):
     return chr(ord(curr) + offset)
 
 
-def mklocation(label, cols, rows, nfiles, gap):
+def mklocation(label, cols, rows, nfiles, xgap, ygap):
     x = '0'
     y = '0'
     k = 0
@@ -70,16 +72,16 @@ def mklocation(label, cols, rows, nfiles, gap):
             if (j == 0):
                 x = '0'
             elif (j == 1):
-                x = r'\wd'+label[i][j-1] + '+' + gap
+                x = r'\wd'+label[i][j-1] + '+' + xgap
             else:
-                x = loc_col[j-1]['x'] + r'+\wd' + label[i][j-1] + '+' + gap
+                x = loc_col[j-1]['x'] + r'+\wd' + label[i][j-1] + '+' + xgap
 
             if (i == 0):
                 y = '0'
             elif (i == 1):
-                y = r'-\ht'+label[i-1][j] + '-' + gap
+                y = r'-\ht'+label[i-1][j] + '-' + ygap
             else:
-                y = loc[i-1][j]['y'] + r'-\ht' + label[i-1][j] + '-' + gap
+                y = loc[i-1][j]['y'] + r'-\ht' + label[i-1][j] + '-' + ygap
 
             loc_col = loc_col + [{'x': x, 'y': y}]
             if (k == nfiles-1):
