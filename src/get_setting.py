@@ -6,11 +6,14 @@ def get_command(args_list):
     while (i < len(args_list)):
         if (args_list[i][0] == '-'):
             key    = args_list[i][1:]
-            option = args_list[i+1][:]
+            if (key == 'f'):
+                option = True
+            else:
+                option = args_list[i+1][:]
+                i = i + 1
 
             option_list[key] = option
 
-            i = i + 1
         else:
             file_list = file_list + [args_list[i]]
 
@@ -22,6 +25,7 @@ def set_options(iopt):
     default = {
                'tile'  : 'horizontal',
                'margin': '0'         ,
+               'f'     : False       ,
               }
     options = default.copy()
     options.update(iopt)
@@ -85,4 +89,16 @@ def get_margin(margin):
     
     return {'x': xmargin, 'y': ymargin}
 
+
+def inquire(force, ifile, ofile):
+    if (force):
+        return
+
+    work_ifile = '\n'.join(ifile)
+    inq_exec = input(f'Input files:\n{work_ifile}\n\nOutput file:\n{ofile}\n\nDo you concatenate files? (y/n) ').strip().lower()
+
+    if (inq_exec == 'y' or inq_exec == 'yes'):
+        return
+    else:
+        exit(0)
 

@@ -3,13 +3,15 @@ workpdf=worktex[:-3]+'pdf'
 
 import sys
 import subprocess
-from get_setting import get_command, set_options, get_tile, get_margin
+from get_setting import get_command, set_options, get_tile, get_margin, inquire
 from w2tex       import write2tex
 
 args  = sys.argv[1:]
 
 ifile, ofile, opt = get_command(args)
 opt        = set_options(opt)
+inquire(opt['f'], ifile, ofile)
+
 cols, rows = get_tile(opt['tile'], ifile)
 margin     = get_margin(opt['margin'])
 
