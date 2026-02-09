@@ -13,7 +13,7 @@ def write2tex(cols, rows, margin, ifiles, ofile, options):
     op.write(r'\usepackage{graphicx}'+'\n')
 
     label_list = [None]*nfiles
-    label      = 'a'
+    label      = 'aaaa'
     for i in range(nfiles):
         label_list[i] = r'\fig' + label
         op.write(r'\newsavebox{'+label_list[i]+'}'+'\n')
@@ -52,13 +52,15 @@ def write2tex(cols, rows, margin, ifiles, ofile, options):
 
 
 def alph_update(curr, offset):
-    if (curr == 'Z'):
-        raise ValueError('Too many input files')
+    curr = list(curr)
+    nstr = len(curr)
+    for i in range(nstr):
+        if (curr[nstr-i-1] != 'z'):
+            curr[nstr-i-1] = chr(ord(curr[nstr-i-1]) + offset)
+            curr[nstr-i:] = ['a']*i
+            return ''.join(curr)
 
-    if (curr == 'z'):
-        return 'A'
-
-    return chr(ord(curr) + offset)
+    raise ValueError('Too many input files')
 
 
 def mklocation(label, cols, rows, nfiles, xgap, ygap):
