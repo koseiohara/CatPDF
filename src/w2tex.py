@@ -6,11 +6,13 @@ def write2tex(cols, rows, margin, last_align, ifiles, ofile, options):
 
     alph_offset  = ord('b') - ord('a')
     nfiles       = len(ifiles)
-    protruded    = nfiles % cols
-    align_center = (last_align == 'c') & (protruded != 0)
-    align_right  = (last_align == 'r') & (protruded != 0)
+    # protruded    = nfiles % cols
+    align_center = (last_align == 'c')
+    align_right  = (last_align == 'r')
 
-    rows = min(rows, int(nfiles/cols)+1)
+    rows = int(nfiles/cols)
+    if (rows*cols < nfiles):
+        rows = rows + 1
 
     worktex = ofile
     op = open(worktex, mode='w')

@@ -72,12 +72,6 @@ def get_tile(tile, ifile):
     if (cols*rows < len(ifile)):
         raise ValueError(f'Number of tiles is too small: {cols*rows}. {len(ifile)} files were specified.')
 
-    #for i in range(rows):
-    #    for j in range(cols):
-    #        idx = i*cols + j
-    #        if (idx > len(ifile)-1):
-    #            return cols, rows
-
     return cols, rows
 
 
