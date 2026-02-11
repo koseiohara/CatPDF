@@ -18,7 +18,6 @@ margin     = get_margin(opt['margin'])
 align      = get_align(opt['align'])
 
 write2tex(cols, rows, margin, align, ifile, worktex, opt)
-exit(0)
 
 subprocess.run(f'cd {workdir}; latexmk -C', shell=True)
 subprocess.run(f'cd {workdir}; latexmk -pdf {worktex}', shell=True)

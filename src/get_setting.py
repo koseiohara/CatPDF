@@ -120,8 +120,12 @@ def inquire(force, ifile, ofile):
     if (force):
         return
 
-    work_ifile = '\n'.join(ifile)
-    inq_exec = input(f'Input files:\n{work_ifile}\n\nOutput file:\n{ofile}\n\nDo you concatenate files? (y/n) ').strip().lower()
+    print('Input Files:')
+    for i in range(len(ifile)):
+        print(f'{i+1:>6}. {ifile[i]}')
+
+    print(f'Output File:\n{"":6s}{ofile}\n')
+    inq_exec = input('Do you concatenate files? (y/n) ').strip().lower()
 
     if (inq_exec == 'y' or inq_exec == 'yes'):
         return

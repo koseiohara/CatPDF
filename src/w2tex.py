@@ -11,7 +11,6 @@ def write2tex(cols, rows, margin, last_align, ifiles, ofile, options):
     align_right  = (last_align == 'r') & (protruded != 0)
 
     rows = min(rows, int(nfiles/cols)+1)
-    print(f'DEBUG: {rows=}')
 
     worktex = ofile
     op = open(worktex, mode='w')
@@ -44,7 +43,6 @@ def write2tex(cols, rows, margin, last_align, ifiles, ofile, options):
     loc = mklocation(work_label, cols, rows, nfiles, xgap, ygap)
 
     op.write(r'\newdimen\maxrowwidth'+'\n')
-    # op.write(r'\newdimen\rowwidth'+'\n')
     op.write(r'\newdimen\rowwidth'+'\n')
     op.write(r'\newdimen\offset'+'\n')
     op.write(r'\maxrowwidth=0pt'+'\n')
@@ -57,17 +55,13 @@ def write2tex(cols, rows, margin, last_align, ifiles, ofile, options):
     for labidx in range(rows):
         labels = work_label[labidx]
         rowwidth_maker = r'\rowwidth=\dimexpr'
-        # op.write(r'\rowwidth=\dimexpr')
         # Loop in Column Direction
-        for figidx in range(len(labels)):
+        for figidx in range(len(labels)):   # NOTE: len(labels) must not be replaced with cols: len(labels) in the last line may be smaller than colss
             rowwidth_maker = rowwidth_maker + r'\wd'+labels[figidx]
-            # op.write(r'\wd'+labels[figidx])
             if (figidx < len(labels)-1): 
                 rowwidth_maker = rowwidth_maker + r'+\xgap+'
-                # op.write(r'+\xgap+')
             else:
                 rowwidth_maker = rowwidth_maker + r'\relax'+'\n'
-                # op.write(r'\relax'+'\n')
 
         op.write(rowwidth_maker)
         op.write(r'\ifdim\rowwidth>\maxrowwidth\maxrowwidth=\rowwidth\fi'+'\n')
@@ -75,22 +69,12 @@ def write2tex(cols, rows, margin, last_align, ifiles, ofile, options):
 
     op.write(r'\begin{tikzpicture}'+'\n')
 
-    # labels = work_label[rows-1]
-    # # print(f'DEBUG: labels={labels}')
-    # op.write(r'\rowwidth=\dimexpr')
-    # for figidx in range(len(labels)):   # NOTE: Do NOT change len(labels) to cols! The size of the last line may be smaller than cols!
-    #     op.write(r'\wd'+labels[figidx])
-    #     if (figidx < len(labels)-1): 
-    #         op.write(r'+\xgap+')
-    #     else:
-    #         op.write(r'\relax'+'\n')
-
     if (align_center):
         define_offset = r'\offset=\dimexpr(\maxrowwidth-\rowwidth)/2\relax'+'\n'
     elif (align_right):
         define_offset = r'\offset=\dimexpr\maxrowwidth-\rowwidth\relax'+'\n'
     else:
-        define_offset = r'\offset=0\relax'+'\n'
+        define_offset = r'\offset=0pt\relax'+'\n'
 
     k = 0
     for i in range(rows):
@@ -99,13 +83,8 @@ def write2tex(cols, rows, margin, last_align, ifiles, ofile, options):
         op.write(r'\ifdim\offset<0pt\offset=0pt\fi'+'\n')
 
         for j in range(cols):
-            # op.write(r'\node[anchor=north west,inner sep=0] at '+f'({loc[i][j]["x"]},{loc[i][j]["y"]})'+r' {\usebox{' + label_list[k] + '}};'+'\n')
             op.write(r'\node[anchor=north west,inner sep=0] at (\offset+' + f'{loc[i][j]["x"]},{loc[i][j]["y"]})'+r' {\usebox{' + label_list[k] + '}};'+'\n')
 
-            # if (i < rows-1):
-            #     op.write(f'{loc[i][j]["x"]},{loc[i][j]["y"]})'+r' {\usebox{' + label_list[k] + '}};'+'\n')
-            # else:
-            # op.write(r'\offset+' + f'{loc[i][j]["x"]},{loc[i][j]["y"]})'+r' {\usebox{' + label_list[k] + '}};'+'\n')
             if (k == nfiles-1):
                 op.write(r'\end{tikzpicture}'+'\n')
                 op.write(r'\end{document}'+'\n')
