@@ -3,7 +3,7 @@ INSTALL=${HOME}/PythonLib/lib
 CATPDF=${INSTALL}/CatpdfTool
 EXEC=${CATPDF}/catpdf
 
-.PHONY: install uninstall mkbash
+.PHONY: install uninstall update
 
 install : 
 	mkdir ${CATPDF}
@@ -19,5 +19,8 @@ install :
 uninstall:
 	unlink ${INSTALL}/catpdf
 	rm -r ${CATPDF}
+
+update: uninstall install
+
 
 

@@ -35,6 +35,7 @@ def set_options(iopt):
     default = {
                'tile'  : 'horizontal',
                'margin': '0'         ,
+               'align' : 'l'         ,
                'f'     : False       ,
               }
     options = default.copy()
@@ -98,6 +99,21 @@ def get_margin(margin):
             raise ValueError(f'Invalid margin format: {margin}. Input should be an integer, '+'or {width}x{height}.')
     
     return {'x': xmargin, 'y': ymargin}
+
+
+def get_align(align):
+    align = align.lower()
+    if (align == 'left'):
+        align = 'l'
+    elif (align == 'center'):
+        align = 'c'
+    elif (align == 'right'):
+        align = 'r'
+
+    if (align != 'l' and align != 'c' and align != 'r'):
+        raise ValueError(f'Invalid align input: {align}. align must be one of l (left), c (center), or r (right)')
+
+    return align
 
 
 def inquire(force, ifile, ofile):
