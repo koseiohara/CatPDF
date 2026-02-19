@@ -21,11 +21,11 @@ The `Makefile` can also be used to uninstall the tool
 ```sh
 $ make uninstall
 ```
-
+To change the version of this tool, execute `make update`.
 
 ## Usage
 This tool automatically generates and compiles LaTeX source code.
-Input files can be any figure formats suppported by LaTeX's `includegraphics` command.
+Input files can be any figure formats supported by LaTeX's `includegraphics` command.
 The output file is generated only in PDF format.
 
 
@@ -48,6 +48,10 @@ Margin between figures.
 If an integer `n` is specified (e.g., `-margin 100`), the margin between figures is set to `n` pixels.
 If margin is specified as `nxm` like `-margin 30x40`, the horizontal margin between adjacent figures is set to `n` pixels, and the vertical margin between figures above and below is set to `m` pixels.
 
+#### -align
+Default: `l`.  
+Horizontal alignment.  
+`left`/`l`, `center`/`c`, or `right`/`r`.
 
 #### -f
 Default: `None`  
